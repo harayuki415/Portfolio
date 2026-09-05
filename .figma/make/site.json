@@ -1,0 +1,10 @@
+{
+  "description": "Interactive portfolio site that reveals text and content as users scroll, enhancing engagement and showcasing work dynamically for creatives.",
+  "robots": {
+    "index": false
+  },
+  "accessibility": {
+    "addBypassLinks": false,
+    "ignoreReducedMotion": false
+  }
+}
