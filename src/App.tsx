@@ -12,15 +12,11 @@ function Reveal({ children, className = "", direction = "left" }: { children: Re
   useEffect(() => {
     const element = ref.current;
     if (!element) return;
-    const threshold = window.innerWidth < 640 ? 0.08 : 0.15;
-    let observer: IntersectionObserver;
-    const timer = setTimeout(() => {
-      observer = new IntersectionObserver(([entry]) => {
-        element.classList.toggle("is-visible", entry.isIntersecting);
-      }, { threshold });
-      observer.observe(element);
-    }, 320);
-    return () => { clearTimeout(timer); observer?.disconnect(); };
+    const observer = new IntersectionObserver(([entry]) => {
+      element.classList.toggle("is-visible", entry.isIntersecting);
+    }, { rootMargin: "-12% 0px -12% 0px", threshold: 0 });
+    observer.observe(element);
+    return () => observer.disconnect();
   }, []);
   return <div ref={ref} className={`reveal reveal-${direction} ${className}`}>{children}</div>;
 }
