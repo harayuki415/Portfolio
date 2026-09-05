@@ -12,18 +12,23 @@ function Reveal({ children, className = "", direction = "left" }: { children: Re
   useEffect(() => {
     const element = ref.current;
     if (!element) return;
-    let observer: IntersectionObserver;
-    // 2フレーム待って隠れた状態を確実に描画させてからObserver起動
-    const id1 = requestAnimationFrame(() => {
-      const id2 = requestAnimationFrame(() => {
-        observer = new IntersectionObserver(([entry]) => {
-          element.classList.toggle("is-visible", entry.isIntersecting);
-        }, { rootMargin: "-8% 0px -8% 0px", threshold: 0 });
-        observer.observe(element);
-      });
-      return () => cancelAnimationFrame(id2);
-    });
-    return () => { cancelAnimationFrame(id1); observer?.disconnect(); };
+    let firstFire = true;
+    const observer = new IntersectionObserver(([entry]) => {
+      if (firstFire) {
+        firstFire = false;
+        if (entry.isIntersecting) {
+          // ページ読み込み時から画面内 → トランジションなしで即表示
+          element.style.transition = "none";
+          element.classList.add("is-visible");
+          requestAnimationFrame(() => { element.style.transition = ""; });
+        }
+        return;
+      }
+      // スクロールで入ってきた → アニメーションあり
+      element.classList.toggle("is-visible", entry.isIntersecting);
+    }, { rootMargin: "-5% 0px -5% 0px", threshold: 0 });
+    observer.observe(element);
+    return () => observer.disconnect();
   }, []);
   return <div ref={ref} className={`reveal reveal-${direction} ${className}`}>{children}</div>;
 }
