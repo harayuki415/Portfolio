@@ -39,6 +39,53 @@ function PaletteSwitcher({ palette, choosePalette }: { palette: Palette; chooseP
   return <div className="palette-switcher" aria-label="配色を選択"><span className="palette-label">PALETTE</span><button type="button" onClick={() => choosePalette("current")} className={palette === "current" ? "is-selected current-swatch" : "current-swatch"} aria-label="青磁の配色を選択" /><button type="button" onClick={() => choosePalette("archive")} className={palette === "archive" ? "is-selected archive-swatch" : "archive-swatch"} aria-label="クリームの配色を選択" /><button type="button" onClick={() => choosePalette("dark")} className={palette === "dark" ? "is-selected dark-swatch" : "dark-swatch"} aria-label="ダークの配色を選択" /></div>;
 }
 
+function useCrystalCursor() {
+  const [cursor, setCursor] = useState({ x: -100, y: -100, visible: false, spin: 3 });
+  const [isBursting, setIsBursting] = useState(false);
+  const lastPointer = useRef({ x: 0, y: 0, time: 0 });
+
+  const followPointer = (event: React.MouseEvent<HTMLElement>) => {
+    const now = performance.now();
+    const elapsed = Math.max(now - lastPointer.current.time, 16);
+    const distance = Math.hypot(event.clientX - lastPointer.current.x, event.clientY - lastPointer.current.y);
+    const velocity = distance / elapsed;
+    const spin = Math.max(0.3, 3 - Math.min(velocity * 1.8, 2.6));
+    lastPointer.current = { x: event.clientX, y: event.clientY, time: now };
+    setCursor({ x: event.clientX, y: event.clientY, visible: true, spin });
+  };
+
+  const hidePointer = () => setCursor((c) => ({ ...c, visible: false }));
+
+  const createPulse = () => {
+    setIsBursting(false);
+    window.requestAnimationFrame(() => setIsBursting(true));
+    window.setTimeout(() => setIsBursting(false), 720);
+  };
+
+  return { cursor, isBursting, followPointer, hidePointer, createPulse };
+}
+
+function CrystalCursorEl({ cursor, isBursting }: { cursor: { x: number; y: number; visible: boolean; spin: number }; isBursting: boolean }) {
+  return (
+    <div
+      aria-hidden="true"
+      className={`crystal-cursor ${cursor.visible ? "is-active" : ""}`}
+      style={{ transform: `translate3d(${cursor.x}px, ${cursor.y}px, 0)`, "--spin-duration": `${cursor.spin}s` } as CSSProperties}
+    >
+      <div className={`crystal-assembly ${isBursting ? "is-bursting" : ""}`}>
+        <span className="diamond diamond-a" />
+        <span className="diamond diamond-b" />
+        <span className="diamond diamond-c" />
+        <span className="crystal-dot" />
+        <span className="crystal-spark spark-a" />
+        <span className="crystal-spark spark-b" />
+        <span className="crystal-spark spark-c" />
+        <span className="crystal-spark spark-d" />
+      </div>
+    </div>
+  );
+}
+
 function Home() {
   const { palette, choosePalette } = usePalette();
   const [cursor, setCursor] = useState({ x: -100, y: -100, visible: false, spin: 2.4 });
@@ -153,12 +200,18 @@ function ProjectPage() {
   const { slug } = useParams();
   const project = projects.find((item) => item.slug === slug) ?? projects[0];
   const nextProject = projects[(projects.findIndex((item) => item.slug === project.slug) + 1) % projects.length];
+  const { cursor, isBursting, followPointer, hidePointer, createPulse } = useCrystalCursor();
 
   useEffect(() => { window.scrollTo(0, 0); }, [slug]);
 
   return (
-    <main data-theme={palette} className="min-h-screen bg-[var(--ground)] text-[var(--ink)] selection:bg-[var(--sun)]">
+    <main data-theme={palette} className="min-h-screen bg-[var(--ground)] text-[var(--ink)] selection:bg-[var(--sun)]"
+      onMouseMove={followPointer}
+      onClick={createPulse}
+      onMouseLeave={hidePointer}
+    >
       <PaletteSwitcher palette={palette} choosePalette={choosePalette} />
+      <CrystalCursorEl cursor={cursor} isBursting={isBursting} />
       <header className="flex items-center justify-between px-5 py-5 font-mono text-[10px] tracking-[.14em] sm:px-8 lg:px-12">
         <Link to="/" className="group flex items-center gap-3 hover:text-[var(--coral)]"><span className="text-lg leading-none transition-transform group-hover:-translate-x-1">←</span> HANA NAKAMURA®</Link>
         <span>{project.no} / 03</span>
