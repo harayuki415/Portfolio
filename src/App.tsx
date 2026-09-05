@@ -1,12 +1,13 @@
 import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
 import mouseBeatImg from "./imports/image-3.png";
 import dogDashImg from "./imports/image-4.png";
+import airStillImg from "./imports/image-5.png";
 import { createBrowserRouter, Link, RouterProvider, useParams } from "react-router";
 
 const projects = [
   { slug: "konomi", no: "01", type: "GAME / 2024", title: "Mouse Beat", image: mouseBeatImg, alt: "Mouse Beat ゲーム画面", intro: "A rhythm game played with nothing but a mouse.", detail: "Mouse Beat is a browser-based rhythm game set to BPM 124. Click in time, chase PERFECT judgements, and climb the score board — no controller required." },
   { slug: "field-guide", no: "02", type: "GAME / 2024", title: "Dog Dash", image: dogDashImg, alt: "Dog Dash ゲーム画面", intro: "Run, jump and collect bones in a neon 3D world.", detail: "Dog Dash is a browser-based endless runner where you guide a hand-crafted dog character through obstacle-filled neon corridors, collecting bones and chasing your best score." },
-  { slug: "air-still", no: "03", type: "OBJECT / 2023", title: "Air, Still", image: "https://images.unsplash.com/photo-1494438639946-1ebd1d20bf85?auto=format&fit=crop&w=1400&q=85", alt: "Sculptural interior objects in a calm room", intro: "Objects made to hold a pause.", detail: "A collection studying weight, tactility and the quiet relation between a room and the things that inhabit it." },
+  { slug: "air-still", no: "03", type: "OBJECT / 2023", title: "Air, Still", image: airStillImg, alt: "青空と犬のキャラクター", intro: "Objects made to hold a pause.", detail: "A collection studying weight, tactility and the quiet relation between a room and the things that inhabit it." },
 ];
 
 function Reveal({ children, className = "", direction = "left" }: { children: ReactNode; className?: string; direction?: "left" | "right" }) {
