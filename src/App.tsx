@@ -79,29 +79,23 @@ function Home() {
       </div>
       <section className="relative grid min-h-svh overflow-hidden px-5 pb-6 pt-5 sm:px-8 lg:grid-cols-12 lg:px-12">
         <div className="noise" />
-        <Reveal className="col-span-full" direction="left">
-          <header className="relative z-10 flex items-center justify-between font-mono text-[10px] tracking-[.14em] text-[var(--ink)]/70">
-            <span>HANA NAKAMURA®</span><span className="hidden sm:inline">CREATIVE PRACTICE</span><span>2024—25</span>
-          </header>
-        </Reveal>
+        <header className="hi hi-0 relative z-10 col-span-full flex items-center justify-between font-mono text-[10px] tracking-[.14em] text-[var(--ink)]/70">
+          <span>HANA NAKAMURA®</span><span className="hidden sm:inline">CREATIVE PRACTICE</span><span>2024—25</span>
+        </header>
         <div className="relative z-10 col-span-full self-center pt-8 pb-4 sm:pt-12 sm:pb-6 lg:col-span-10 lg:col-start-2">
-          <Reveal direction="right"><p className="mb-3 font-mono text-[10px] tracking-[.17em] text-[var(--coral)]">SELECTED WORKS / TOKYO</p></Reveal>
-          <Reveal direction="left" className="delay-1">
-            <h1 className="max-w-5xl font-display text-[clamp(2.4rem,9vw,11.5rem)] leading-[.84] tracking-[-.065em] sm:leading-[.78] sm:tracking-[-.075em]">
-              Thinking<br />in <em className="font-serif font-normal tracking-[-.08em]">forms</em><br />and feeling.
-            </h1>
-          </Reveal>
-          <Reveal direction="right" className="delay-2 mt-10 flex justify-center sm:mt-14">
+          <p className="hi hi-1 mb-3 font-mono text-[10px] tracking-[.17em] text-[var(--coral)]">SELECTED WORKS / TOKYO</p>
+          <h1 className="hi hi-2 max-w-5xl font-display text-[clamp(2.4rem,9vw,11.5rem)] leading-[.84] tracking-[-.065em] sm:leading-[.78] sm:tracking-[-.075em]">
+            Thinking<br />in <em className="font-serif font-normal tracking-[-.08em]">forms</em><br />and feeling.
+          </h1>
+          <div className="hi hi-3 mt-10 flex justify-center sm:mt-14">
             <a href="#work" className="scroll-hint group">
               <span className="font-mono text-[11px] tracking-[.28em] text-[var(--ink)]/40 transition-colors group-hover:text-[var(--coral)]">SCROLL</span>
               <span className="scroll-line"><span className="scroll-dot" /></span>
             </a>
-          </Reveal>
+          </div>
         </div>
         <div className="relative z-10 col-span-full flex items-end justify-between">
-          <Reveal direction="left" className="delay-2 max-w-xs font-mono text-[10px] uppercase leading-relaxed tracking-[.12em] text-[var(--ink)]/60 sm:max-w-48">
-            <p>Independent visual direction, identities and digital experiences.</p>
-          </Reveal>
+          <p className="hi hi-3 max-w-xs font-mono text-[10px] uppercase leading-relaxed tracking-[.12em] text-[var(--ink)]/60 sm:max-w-48">Independent visual direction, identities and digital experiences.</p>
         </div>
       </section>
 
