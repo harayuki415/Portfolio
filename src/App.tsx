@@ -13,7 +13,15 @@ function Reveal({ children, className = "", direction = "left" }: { children: Re
     const element = ref.current;
     if (!element) return;
     const threshold = window.innerWidth < 640 ? 0.08 : 0.18;
+    let firstFire = true;
     const observer = new IntersectionObserver(([entry]) => {
+      if (firstFire) {
+        firstFire = false;
+        if (entry.isIntersecting) {
+          setTimeout(() => element.classList.add("is-visible"), 120);
+          return;
+        }
+      }
       element.classList.toggle("is-visible", entry.isIntersecting);
     }, { threshold });
     observer.observe(element);
