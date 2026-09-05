@@ -12,11 +12,18 @@ function Reveal({ children, className = "", direction = "left" }: { children: Re
   useEffect(() => {
     const element = ref.current;
     if (!element) return;
-    const observer = new IntersectionObserver(([entry]) => {
-      element.classList.toggle("is-visible", entry.isIntersecting);
-    }, { rootMargin: "-12% 0px -12% 0px", threshold: 0 });
-    observer.observe(element);
-    return () => observer.disconnect();
+    let observer: IntersectionObserver;
+    // 2フレーム待って隠れた状態を確実に描画させてからObserver起動
+    const id1 = requestAnimationFrame(() => {
+      const id2 = requestAnimationFrame(() => {
+        observer = new IntersectionObserver(([entry]) => {
+          element.classList.toggle("is-visible", entry.isIntersecting);
+        }, { rootMargin: "-8% 0px -8% 0px", threshold: 0 });
+        observer.observe(element);
+      });
+      return () => cancelAnimationFrame(id2);
+    });
+    return () => { cancelAnimationFrame(id1); observer?.disconnect(); };
   }, []);
   return <div ref={ref} className={`reveal reveal-${direction} ${className}`}>{children}</div>;
 }
