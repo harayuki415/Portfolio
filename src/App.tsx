@@ -1,9 +1,11 @@
 import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
+import mouseBeatImg from "./imports/image-3.png";
+import dogDashImg from "./imports/image-4.png";
 import { createBrowserRouter, Link, RouterProvider, useParams } from "react-router";
 
 const projects = [
-  { slug: "konomi", no: "01", type: "IDENTITY / 2024", title: "KONOMI", image: "https://images.unsplash.com/photo-1531058020387-3be344556be6?auto=format&fit=crop&w=1400&q=85", alt: "Soft light falling on a modern gallery interior", intro: "An identity for a new kind of stillness.", detail: "KONOMI is a restorative space where botanical rituals, mineral colour and unhurried conversation meet." },
-  { slug: "field-guide", no: "02", type: "DIGITAL / 2023", title: "A Field Guide", image: "https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1400&q=85", alt: "Minimal studio workspace with warm light", intro: "A digital atlas for the naturally curious.", detail: "An evolving editorial system that makes room for close looking, wandering and collecting the almost unnoticed." },
+  { slug: "konomi", no: "01", type: "GAME / 2024", title: "Mouse Beat", image: mouseBeatImg, alt: "Mouse Beat ゲーム画面", intro: "A rhythm game played with nothing but a mouse.", detail: "Mouse Beat is a browser-based rhythm game set to BPM 124. Click in time, chase PERFECT judgements, and climb the score board — no controller required." },
+  { slug: "field-guide", no: "02", type: "GAME / 2024", title: "Dog Dash", image: dogDashImg, alt: "Dog Dash ゲーム画面", intro: "Run, jump and collect bones in a neon 3D world.", detail: "Dog Dash is a browser-based endless runner where you guide a hand-crafted dog character through obstacle-filled neon corridors, collecting bones and chasing your best score." },
   { slug: "air-still", no: "03", type: "OBJECT / 2023", title: "Air, Still", image: "https://images.unsplash.com/photo-1494438639946-1ebd1d20bf85?auto=format&fit=crop&w=1400&q=85", alt: "Sculptural interior objects in a calm room", intro: "Objects made to hold a pause.", detail: "A collection studying weight, tactility and the quiet relation between a room and the things that inhabit it." },
 ];
 
@@ -107,7 +109,7 @@ function Home() {
           {projects.map((project, index) => (
             <div key={project.no} className="project grid gap-6 lg:grid-cols-12 lg:items-end">
               <Reveal direction={index % 2 ? "right" : "left"} className={`reveal-img lg:row-start-1 ${index % 2 ? "lg:col-span-7 lg:col-start-6" : "lg:col-span-8 lg:col-start-1"}`}>
-                <Link to={`/work/${project.slug}`} aria-label={`${project.title} のケーススタディを見る`} className={`group relative block overflow-hidden bg-[var(--teal)] w-4/5 lg:w-full ${index % 2 ? "ml-auto" : ""}`}>
+                <Link to={`/work/${project.slug}`} aria-label={`${project.title} のページを見る`} className={`group relative block overflow-hidden bg-[var(--teal)] w-4/5 lg:w-full ${index % 2 ? "ml-auto" : ""}`}>
                   <img src={project.image} alt={project.alt} className="aspect-[4/3] w-full object-cover sepia-[.2] saturate-[.75] transition duration-700 hover:scale-105 hover:saturate-100" />
                   <span className="absolute left-4 top-4 font-mono text-[10px] tracking-[.14em] text-white mix-blend-difference">{project.no}</span>
                 </Link>
