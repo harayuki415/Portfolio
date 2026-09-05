@@ -3,6 +3,7 @@
 
 :root { --ink: #12364a; --teal: #00a5a8; --coral: #e97b87; --sun: #f4eb55; --ground: #cbe7e2; font-family: 'Manrope', sans-serif; color: var(--ink); background: var(--ground); }
 [data-theme="archive"] { --ink: #0d3159; --teal: #5cc7c7; --coral: #d97f83; --sun: #efaaa9; --ground: #f7f2dc; }
+[data-theme="dark"] { --ink: #f0e6d3; --teal: #876989; --coral: #c0366a; --sun: #e8a040; --ground: #13091e; }
 html { scroll-behavior: smooth; overflow-x: hidden; }
 body { margin: 0; overflow-x: hidden; }
 a { transition: color .22s ease, border-color .22s ease, opacity .22s ease; }
@@ -15,7 +16,7 @@ a { transition: color .22s ease, border-color .22s ease, opacity .22s ease; }
 .palette-label { margin-right: 3px; font: 9px 'DM Mono', monospace; letter-spacing: .12em; color: var(--ink); }
 .palette-switcher button { width: 18px; height: 18px; border: 1px solid transparent; border-radius: 50%; cursor: pointer; transition: transform .2s ease, box-shadow .2s ease; }
 .palette-switcher button:hover, .palette-switcher button.is-selected { transform: scale(1.18); box-shadow: 0 0 0 2px var(--ground), 0 0 0 3px var(--ink); }
-.current-swatch { background: linear-gradient(135deg, #cbe7e2 0 34%, #00a5a8 34% 65%, #e97b87 65%); }.archive-swatch { background: linear-gradient(135deg, #f7f2dc 0 34%, #5cc7c7 34% 65%, #d97f83 65%); }
+.current-swatch { background: linear-gradient(135deg, #cbe7e2 0 34%, #00a5a8 34% 65%, #e97b87 65%); }.archive-swatch { background: linear-gradient(135deg, #f7f2dc 0 34%, #5cc7c7 34% 65%, #d97f83 65%); }.dark-swatch { background: linear-gradient(135deg, #13091e 0 34%, #876989 34% 65%, #c0366a 65%); }
 .noise { position: absolute; inset: 0; opacity: .2; pointer-events: none; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.25'/%3E%3C/svg%3E"); }
 .hi { opacity: 0; transform: translateY(28px); animation: hi-in 1.1s cubic-bezier(.16,.8,.2,1) forwards; }
 .hi-0 { animation-delay: 80ms; }
