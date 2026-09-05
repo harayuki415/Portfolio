@@ -117,7 +117,7 @@ function Home() {
               </Reveal>
               <Reveal direction={index % 2 ? "right" : "left"} className={`pb-1 lg:row-start-1 lg:self-end ${index % 2 ? "lg:col-span-4 lg:col-start-1" : "lg:col-span-3 lg:col-start-10"}`}>
                 <p className="mb-3 font-mono text-[10px] tracking-[.14em] text-[var(--coral)]">{project.type}</p>
-                <h2 className="font-display text-4xl leading-none tracking-[-.065em] sm:text-6xl lg:text-7xl">{project.title}</h2>
+                <h2 className="font-display text-4xl leading-none tracking-[-.065em] sm:text-6xl lg:text-7xl"><Link to={`/work/${project.slug}`} className="transition hover:text-[var(--teal)]">{project.title}</Link></h2>
                 <Link to={`/work/${project.slug}`} className="mt-6 inline-flex items-center gap-4 border-b border-[var(--ink)]/40 pb-2 font-mono text-[10px] tracking-[.12em] transition hover:border-[var(--coral)] hover:text-[var(--coral)]">VIEW CASE STUDY <span>↗</span></Link>
               </Reveal>
             </div>
