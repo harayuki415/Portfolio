@@ -64,5 +64,5 @@ a { transition: color .22s ease, border-color .22s ease, opacity .22s ease; }
 .scroll-dot { position: absolute; top: 0; left: 0; width: 1px; height: 32px; background: var(--coral); animation: scroll-travel 2.4s cubic-bezier(.4,0,.6,1) infinite; }
 @keyframes scroll-travel { 0% { transform: translateY(-100%); opacity: 1; } 70% { opacity: 1; } 100% { transform: translateY(310%); opacity: 0; } }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .reveal { opacity: 1; transform: none; transition: none; } .scroll-dot { animation: none; top: 30%; } }
-@media (pointer: coarse) { .science-cursor { display: none; } }
+@media (pointer: coarse) { .science-cursor, .crystal-cursor { transition: none; } }
 

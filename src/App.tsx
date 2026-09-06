@@ -5,8 +5,8 @@ import airStillImg from "./imports/image-5.png";
 import { createBrowserRouter, Link, RouterProvider, useParams } from "react-router";
 
 const projects = [
-  { slug: "konomi", no: "01", type: "GAME / 2024", title: "Mouse Beat", image: mouseBeatImg, alt: "Mouse Beat ゲーム画面", intro: "A rhythm game played with nothing but a mouse.", detail: "Mouse Beat is a browser-based rhythm game set to BPM 124. Click in time, chase PERFECT judgements, and climb the score board — no controller required." },
-  { slug: "field-guide", no: "02", type: "GAME / 2024", title: "Dog Dash", image: dogDashImg, alt: "Dog Dash ゲーム画面", intro: "Run, jump and collect bones in a neon 3D world.", detail: "Dog Dash is a browser-based endless runner where you guide a hand-crafted dog character through obstacle-filled neon corridors, collecting bones and chasing your best score." },
+  { slug: "konomi", no: "01", type: "GAME / 2024", title: "Mouse Beat", image: mouseBeatImg, alt: "Mouse Beat ゲーム画面", intro: "A rhythm game played with nothing but a mouse.", detail: "Mouse Beat is a browser-based rhythm game set to BPM 124. Click in time, chase PERFECT judgements, and climb the score board — no controller required.", gameLink: "https://harayuki415.github.io/music/" },
+  { slug: "field-guide", no: "02", type: "GAME / 2024", title: "Dog Dash", image: dogDashImg, alt: "Dog Dash ゲーム画面", intro: "Run, jump and collect bones in a neon 3D world.", detail: "Dog Dash is a browser-based endless runner where you guide a hand-crafted dog character through obstacle-filled neon corridors, collecting bones and chasing your best score.", gameLink: "https://harayuki415.github.io/dogdash/" },
   { slug: "air-still", no: "03", type: "OBJECT / 2023", title: "Air, Still", image: airStillImg, alt: "青空と犬のキャラクター", intro: "Objects made to hold a pause.", detail: "A collection studying weight, tactility and the quiet relation between a room and the things that inhabit it." },
 ];
 
@@ -56,7 +56,8 @@ function useCrystalCursor() {
 
   const hidePointer = () => setCursor((c) => ({ ...c, visible: false }));
 
-  const createPulse = () => {
+  const createPulse = (event: React.MouseEvent<HTMLElement>) => {
+    setCursor((c) => ({ ...c, x: event.clientX, y: event.clientY, visible: true }));
     setIsBursting(false);
     window.requestAnimationFrame(() => setIsBursting(true));
     window.setTimeout(() => setIsBursting(false), 720);
@@ -103,6 +104,7 @@ function Home() {
   };
 
   const createPulse = (event: React.MouseEvent<HTMLElement>) => {
+    setCursor((c) => ({ ...c, x: event.clientX, y: event.clientY, visible: true }));
     setIsBursting(false);
     window.requestAnimationFrame(() => setIsBursting(true));
     window.setTimeout(() => setIsBursting(false), 720);
@@ -226,7 +228,15 @@ function ProjectPage() {
       <div className="mx-5 overflow-hidden bg-[var(--teal)] sm:mx-8 lg:mx-12"><img src={project.image} alt={project.alt} className="aspect-[4/3] w-full object-cover sepia-[.2] saturate-[.75] sm:aspect-[16/8]" /></div>
       <section className="grid gap-10 px-5 py-16 sm:px-8 sm:py-24 lg:grid-cols-12 lg:px-12 lg:py-40">
         <p className="font-mono text-[10px] tracking-[.15em] text-[var(--coral)] lg:col-span-3">PROJECT NOTES</p>
-        <div className="lg:col-span-7"><p className="font-display text-2xl leading-[1.02] tracking-[-.045em] sm:text-4xl lg:text-5xl">{project.detail}</p><div className="mt-12 grid grid-cols-2 gap-6 border-t border-[var(--ink)]/20 pt-5 font-mono text-[10px] leading-relaxed tracking-[.1em]"><p>DISCIPLINE<br /><span className="text-[var(--ink)]/60">STRATEGY / ART DIRECTION / DESIGN</span></p><p>COLLABORATORS<br /><span className="text-[var(--ink)]/60">STUDIO HN / TOKYO</span></p></div></div>
+        <div className="lg:col-span-7">
+          <p className="font-display text-2xl leading-[1.02] tracking-[-.045em] sm:text-4xl lg:text-5xl">{project.detail}</p>
+          {project.gameLink && (
+            <a href={project.gameLink} target="_blank" rel="noreferrer" className="mt-10 inline-flex items-center gap-4 border border-[var(--ink)]/40 px-6 py-3 font-mono text-[10px] tracking-[.15em] transition hover:border-[var(--coral)] hover:text-[var(--coral)]">
+              PLAY GAME <span>↗</span>
+            </a>
+          )}
+          <div className="mt-12 grid grid-cols-2 gap-6 border-t border-[var(--ink)]/20 pt-5 font-mono text-[10px] leading-relaxed tracking-[.1em]"><p>DISCIPLINE<br /><span className="text-[var(--ink)]/60">STRATEGY / ART DIRECTION / DESIGN</span></p><p>COLLABORATORS<br /><span className="text-[var(--ink)]/60">STUDIO HN / TOKYO</span></p></div>
+        </div>
       </section>
       <section className="bg-[var(--ink)] px-5 py-14 text-[var(--ground)] sm:px-8 sm:py-16 lg:px-12 lg:py-24"><p className="font-mono text-[10px] tracking-[.15em] text-[var(--teal)]">NEXT PROJECT</p><Link to={`/work/${nextProject.slug}`} className="mt-5 inline-block font-display text-[clamp(2.5rem,8vw,8rem)] leading-none tracking-[-.075em] transition hover:text-[var(--teal)]">{nextProject.title} <span className="font-serif font-normal">→</span></Link></section>
     </main>
