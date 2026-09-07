@@ -30,7 +30,7 @@ function Reveal({ children, className = "", direction = "left" }: { children: Re
 type Palette = "current" | "archive" | "dark" | "berry";
 
 function usePalette() {
-  const [palette, setPalette] = useState<Palette>(() => (localStorage.getItem("portfolio-palette") as Palette) || "berry");
+  const [palette, setPalette] = useState<Palette>(() => (localStorage.getItem("portfolio-palette") as Palette) || "dark");
   const choosePalette = (next: Palette) => { localStorage.setItem("portfolio-palette", next); setPalette(next); };
   return { palette, choosePalette };
 }
@@ -167,7 +167,12 @@ function Home() {
               <Reveal direction={index % 2 ? "right" : "left"} className={`pb-1 lg:row-start-1 lg:self-end ${index % 2 ? "text-right lg:text-left lg:col-span-4 lg:col-start-1" : "lg:col-span-3 lg:col-start-10"}`}>
                 <p className="mb-3 font-mono text-[10px] tracking-[.14em] text-[var(--coral)]">{project.type}</p>
                 <h2 className="font-display text-4xl leading-none tracking-[-.065em] sm:text-6xl lg:text-7xl"><Link to={`/work/${project.slug}`} className="transition hover:text-[var(--teal)]">{project.title}</Link></h2>
-                <Link to={`/work/${project.slug}`} className={`mt-6 inline-flex items-center gap-4 border-b border-[var(--ink)]/40 pb-2 font-mono text-[10px] tracking-[.12em] transition hover:border-[var(--coral)] hover:text-[var(--coral)] ${index % 2 ? "flex-row-reverse lg:flex-row" : ""}`}>VIEW CASE STUDY <span>↗</span></Link>
+                <div className={`mt-6 flex flex-wrap gap-4 ${index % 2 ? "justify-end lg:justify-start" : ""}`}>
+                  <Link to={`/work/${project.slug}`} className="inline-flex items-center gap-4 border-b border-[var(--ink)]/40 pb-2 font-mono text-[10px] tracking-[.12em] transition hover:border-[var(--coral)] hover:text-[var(--coral)]">VIEW CASE STUDY <span>↗</span></Link>
+                  {"gameLink" in project && project.gameLink && (
+                    <a href={project.gameLink as string} target="_blank" rel="noreferrer" className="inline-flex items-center gap-4 border-b border-[var(--teal)]/60 pb-2 font-mono text-[10px] tracking-[.12em] text-[var(--teal)] transition hover:border-[var(--teal)] hover:opacity-75">PLAY GAME <span>↗</span></a>
+                  )}
+                </div>
               </Reveal>
             </div>
           ))}
