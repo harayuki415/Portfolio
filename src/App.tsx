@@ -5,8 +5,8 @@ import airStillImg from "./imports/image-5.png";
 import { createBrowserRouter, Link, RouterProvider, useParams } from "react-router";
 
 const projects = [
-  { slug: "konomi", no: "01", type: "GAME / 2024", title: "Mouse Beat", image: mouseBeatImg, alt: "Mouse Beat ゲーム画面", intro: "A rhythm game played with nothing but a mouse.", detail: "Mouse Beat is a browser-based rhythm game set to BPM 124. Click in time, chase PERFECT judgements, and climb the score board — no controller required.", gameLink: "https://harayuki415.github.io/music/" },
-  { slug: "field-guide", no: "02", type: "GAME / 2024", title: "Dog Dash", image: dogDashImg, alt: "Dog Dash ゲーム画面", intro: "Run, jump and collect bones in a neon 3D world.", detail: "Dog Dash is a browser-based endless runner where you guide a hand-crafted dog character through obstacle-filled neon corridors, collecting bones and chasing your best score.", gameLink: "https://harayuki415.github.io/dogdash/" },
+  { slug: "konomi", no: "01", type: "GAME / 2024", title: "Mouse Beat", image: mouseBeatImg, alt: "Mouse Beat ゲーム画面", intro: "A rhythm game played with nothing but a mouse.", detail: "Mouse Beat is a browser-based rhythm game set to BPM 124. Click in time, chase PERFECT judgements, and climb the score board — no controller required.", gameLink: "https://harayuki415.github.io/music/", tech: [{ label: "GAME LOGIC", value: "Vanilla JavaScript" }, { label: "3D RENDERING", value: "Three.js r165 / WebGL" }, { label: "3D ASSET", value: "FBXLoader / AnimationMixer" }, { label: "AUDIO", value: "Web Audio API" }, { label: "EFFECTS", value: "Canvas 2D / CSS Animation" }, { label: "PERSISTENCE", value: "localStorage" }, { label: "DELIVERY", value: "GitHub Actions / Pages" }], implementation: [{ no: "01", title: "game.js", desc: "Input · judgement · score · progression · results · audio · 2D particles" }, { no: "02", title: "dog3d.js", desc: "Three.js scene · FBX loading · animation · fallback model" }, { no: "03", title: "styles.css", desc: "Neon HUD · start / result screens · responsive UI" }, { no: "04", title: "pages.yml", desc: "Automated deploy to GitHub Pages from main branch" }] },
+  { slug: "field-guide", no: "02", type: "GAME / 2024", title: "Dog Dash", image: dogDashImg, alt: "Dog Dash ゲーム画面", intro: "Run, jump and collect bones in a neon 3D world.", detail: "Dog Dash is a browser-based endless runner where you guide a hand-crafted dog character through obstacle-filled neon corridors, collecting bones and chasing your best score.", gameLink: "https://harayuki415.github.io/dogdash/", tech: [{ label: "RENDERING", value: "Three.js r160 / WebGL" }, { label: "3D ASSETS", value: "FBXLoader / FBX × 3" }, { label: "MATERIALS", value: "Color / Normal / Roughness maps" }, { label: "MOTION", value: "AnimationMixer / Cross fade" }, { label: "AUDIO", value: "Web Audio API" }, { label: "STATE", value: "JavaScript / localStorage" }, { label: "DELIVERY", value: "GitHub Pages / Vendored modules" }], implementation: [{ no: "01", title: "Game Loop", desc: "Movement · spawning · collision · score · life" }, { no: "02", title: "3D Rendering", desc: "Fog · multiple lights · shadows · tone mapping" }, { no: "03", title: "Feedback", desc: "Particles · sound effects · invincibility flash" }, { no: "04", title: "Resilience", desc: "Fallback geometry when model loading fails" }] },
   { slug: "air-still", no: "03", type: "OBJECT / 2023", title: "Air, Still", image: airStillImg, alt: "青空と犬のキャラクター", intro: "Objects made to hold a pause.", detail: "A collection studying weight, tactility and the quiet relation between a room and the things that inhabit it." },
 ];
 
@@ -236,6 +236,37 @@ function ProjectPage() {
             </a>
           )}
           <div className="mt-12 grid grid-cols-2 gap-6 border-t border-[var(--ink)]/20 pt-5 font-mono text-[10px] leading-relaxed tracking-[.1em]"><p>DISCIPLINE<br /><span className="text-[var(--ink)]/60">STRATEGY / ART DIRECTION / DESIGN</span></p><p>COLLABORATORS<br /><span className="text-[var(--ink)]/60">STUDIO HN / TOKYO</span></p></div>
+          {"tech" in project && project.tech && (
+            <div className="mt-20">
+              <div className="grid gap-16 lg:grid-cols-2">
+                <div>
+                  <p className="mb-6 font-mono text-[10px] tracking-[.15em] text-[var(--coral)]">TECH STACK</p>
+                  <div className="divide-y divide-[var(--ink)]/10">
+                    {(project.tech as { label: string; value: string }[]).map((row) => (
+                      <div key={row.label} className="flex justify-between gap-8 py-3 font-mono text-[10px] tracking-[.1em]">
+                        <span className="text-[var(--ink)]/45 shrink-0">{row.label}</span>
+                        <span className="text-right">{row.value}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+                <div>
+                  <p className="mb-6 font-mono text-[10px] tracking-[.15em] text-[var(--coral)]">IMPLEMENTATION</p>
+                  <div className="divide-y divide-[var(--ink)]/10">
+                    {(project.implementation as { no: string; title: string; desc: string }[]).map((item) => (
+                      <div key={item.no} className="flex gap-6 py-4">
+                        <span className="font-mono text-[10px] tracking-[.1em] text-[var(--teal)] shrink-0 pt-0.5">{item.no}</span>
+                        <div>
+                          <p className="font-display text-sm font-semibold tracking-[-.02em]">{item.title}</p>
+                          <p className="mt-1 font-mono text-[10px] tracking-[.08em] text-[var(--ink)]/55">{item.desc}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </section>
       <section className="bg-[var(--ink)] px-5 py-14 text-[var(--ground)] sm:px-8 sm:py-16 lg:px-12 lg:py-24"><p className="font-mono text-[10px] tracking-[.15em] text-[var(--teal)]">NEXT PROJECT</p><Link to={`/work/${nextProject.slug}`} className="mt-5 inline-block font-display text-[clamp(2.5rem,8vw,8rem)] leading-none tracking-[-.075em] transition hover:text-[var(--teal)]">{nextProject.title} <span className="font-serif font-normal">→</span></Link></section>
