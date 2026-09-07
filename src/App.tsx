@@ -2,7 +2,7 @@ import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from 
 import mouseBeatImg from "./imports/mouse_beat_neon_loop.gif";
 import dogDashImg from "./imports/konomi_neon_loop.gif";
 import airStillImg from "./imports/image-5.png";
-import { createBrowserRouter, Link, RouterProvider, useParams } from "react-router";
+import { createBrowserRouter, Link, Navigate, RouterProvider, useParams } from "react-router";
 
 const projects = [
   { slug: "konomi", no: "01", type: "GAME / 2024", title: "Mouse Beat", image: mouseBeatImg, alt: "Mouse Beat ゲーム画面", intro: "A rhythm game played with nothing but a mouse.", detail: "Mouse Beat is a browser-based rhythm game set to BPM 124. Click in time, chase PERFECT judgements, and climb the score board — no controller required.", gameLink: "https://harayuki415.github.io/music/", tech: [{ label: "GAME LOGIC", value: "Vanilla JavaScript" }, { label: "3D RENDERING", value: "Three.js r165 / WebGL" }, { label: "3D ASSET", value: "FBXLoader / AnimationMixer" }, { label: "AUDIO", value: "Web Audio API" }, { label: "EFFECTS", value: "Canvas 2D / CSS Animation" }, { label: "PERSISTENCE", value: "localStorage" }, { label: "DELIVERY", value: "GitHub Actions / Pages" }], implementation: [{ no: "01", title: "game.js", desc: "Input · judgement · score · progression · results · audio · 2D particles" }, { no: "02", title: "dog3d.js", desc: "Three.js scene · FBX loading · animation · fallback model" }, { no: "03", title: "styles.css", desc: "Neon HUD · start / result screens · responsive UI" }, { no: "04", title: "pages.yml", desc: "Automated deploy to GitHub Pages from main branch" }] },
@@ -277,6 +277,7 @@ function ProjectPage() {
 const router = createBrowserRouter([
   { path: "/", Component: Home },
   { path: "/work/:slug", Component: ProjectPage },
+  { path: "*", element: <Navigate to="/" replace /> },
 ], { basename: import.meta.env.BASE_URL });
 
 export default function App() {
