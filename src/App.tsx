@@ -27,16 +27,16 @@ function Reveal({ children, className = "", direction = "left" }: { children: Re
   return <div ref={ref} className={`reveal reveal-${direction} ${className}`}>{children}</div>;
 }
 
-type Palette = "current" | "archive" | "dark";
+type Palette = "current" | "archive" | "dark" | "berry";
 
 function usePalette() {
-  const [palette, setPalette] = useState<Palette>(() => (localStorage.getItem("portfolio-palette") as Palette) || "current");
+  const [palette, setPalette] = useState<Palette>(() => (localStorage.getItem("portfolio-palette") as Palette) || "berry");
   const choosePalette = (next: Palette) => { localStorage.setItem("portfolio-palette", next); setPalette(next); };
   return { palette, choosePalette };
 }
 
 function PaletteSwitcher({ palette, choosePalette }: { palette: Palette; choosePalette: (palette: Palette) => void }) {
-  return <div className="palette-switcher" aria-label="配色を選択"><span className="palette-label">PALETTE</span><button type="button" onClick={() => choosePalette("current")} className={palette === "current" ? "is-selected current-swatch" : "current-swatch"} aria-label="青磁の配色を選択" /><button type="button" onClick={() => choosePalette("archive")} className={palette === "archive" ? "is-selected archive-swatch" : "archive-swatch"} aria-label="クリームの配色を選択" /><button type="button" onClick={() => choosePalette("dark")} className={palette === "dark" ? "is-selected dark-swatch" : "dark-swatch"} aria-label="ダークの配色を選択" /></div>;
+  return <div className="palette-switcher" aria-label="配色を選択"><span className="palette-label">PALETTE</span><button type="button" onClick={() => choosePalette("berry")} className={palette === "berry" ? "is-selected berry-swatch" : "berry-swatch"} aria-label="バーリーの配色を選択" /><button type="button" onClick={() => choosePalette("current")} className={palette === "current" ? "is-selected current-swatch" : "current-swatch"} aria-label="青磁の配色を選択" /><button type="button" onClick={() => choosePalette("archive")} className={palette === "archive" ? "is-selected archive-swatch" : "archive-swatch"} aria-label="クリームの配色を選択" /><button type="button" onClick={() => choosePalette("dark")} className={palette === "dark" ? "is-selected dark-swatch" : "dark-swatch"} aria-label="ダークの配色を選択" /></div>;
 }
 
 function useCrystalCursor() {
