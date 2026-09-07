@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
 import mouseBeatImg from "./imports/image-3.png";
-import dogDashImg from "./imports/image-4.png";
+import dogDashImg from "./imports/image-7.png";
 import airStillImg from "./imports/image-5.png";
 import { createBrowserRouter, Link, RouterProvider, useParams } from "react-router";
 
