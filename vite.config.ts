@@ -13,6 +13,12 @@ export default defineConfig(({ mode }) => {
   return {
     base: process.env.GITHUB_PAGES ? '/Portfolio/' : (process.env.FIGMA_PUBLIC_URL ? `${process.env.FIGMA_PUBLIC_URL}/` : '/'),
     build: {
+      rolldownOptions: {
+        input: {
+          main: path.resolve(__dirname, 'index.html'),
+          career: path.resolve(__dirname, 'career.html'),
+        },
+      },
       sourcemap: emitSourcemaps ? 'inline' : false,
       minify: !emitSourcemaps,
     },
@@ -114,7 +120,9 @@ function figmaSiteConfiguration(config: FigmaSiteConfiguration): Plugin {
     },
     transformIndexHtml: {
       order: 'pre',
-      handler(html) {
+      handler(html, context) {
+        // Career Edition owns its metadata; leave the original document unchanged.
+        if (context.filename.endsWith('career.html')) return html
         let result = html
         result = replaceHtmlCommentSlot(result, 'figma:lang', language)
         result = replaceHtmlCommentSlot(result, 'figma:title', escapeHtmlText(title))
